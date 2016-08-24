@@ -1,0 +1,124 @@
+{% extends '::front_layout.html.twig' %}
+
+ {% block facultad %} class="active" {% endblock %}
+
+{% block title %}Cuentas por cobrar ext.{% endblock %}
+{% block body -%}
+    <h1><i class="fa fa-columns"></i> Cuentas por Cobrar en el Exterior (101B)</h1>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Listado Cuentas por Cobrar en el Exterior</h3>
+
+                    <div class="pull-right">
+                        <a href="{{ path('modelo101b_new') }}" class="btn  btn-xs btn-primary">Adicionar</a>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+{#<div class="box-body" style="width: 100%; overflow: scroll">#}
+
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th> Codigo One</th>
+                            <th>Empresa </th>
+                            <th> Mes</th>
+
+                            {#<th> <h6>Extnoven</h6> </th>#}
+                            {#<th><h6>Ext060</h6> </th>#}
+                            {#<th><h6>Ext6190</h6> </th>#}
+                            {#<th><h6>Extmas90</h6></th>#}
+                            {#<th><h6>Exttotve</h6></th>#}
+                            {#<th><h6>Extefecto</h6></th>#}
+                            {#<th><h6>Litjude</h6></th>#}
+                            {#<th><h6>Litprote</h6></th>#}
+                            {#<th><h6>Sentpente</h6></th>#}
+                            {#<th><h6>Tvtcrex</h6></th>#}
+                            {#<th><h6>Contravalor</h6></th>#}
+                            <th  >Estado</th>
+                            <th  >Detalles</th>
+                            <th >Editar</th>
+                            <th >Eliminar</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for entity in entities %}
+                            <tr>
+                                <td>{{ entity.usuario.empresa.codigo }}</td>
+                                <td>{{ entity.usuario.empresa.nombre }}</td>
+                                <td>
+
+                                    {% if entity.fecha | date('m') == 01 %}
+                                        Enero
+                                    {% elseif entity.fecha | date('m') == 02 %}
+                                        Febreo
+                                    {% elseif entity.fecha | date('m') == 03 %}
+                                        Marzo
+                                    {% elseif entity.fecha | date('m') == 04 %}
+                                        Abril
+                                    {% elseif entity.fecha | date('m') == 05 %}
+                                        Mayo
+                                    {% elseif entity.fecha | date('m') == 06 %}
+                                        Junio
+                                    {% elseif entity.fecha | date('m') == 07 %}
+                                        Julio
+                                    {% elseif entity.fecha | date('m') == 08 %}
+                                        Agosto
+                                    {% elseif entity.fecha | date('m') == 09 %}
+                                        Septiembre
+                                    {% elseif entity.fecha | date('m') == 10 %}
+                                        Octubre
+                                    {% elseif entity.fecha | date('m') == 11 %}
+                                        Noviembre
+                                    {% elseif entity.fecha | date('m') == 12 %}
+                                        Diciembre
+                                    {% endif %}
+
+                                </td>
+                                <td>
+                                    {% if entity.estado == 1 %}
+
+                                <a id="confirmar" href="#" onclick='cambiar("{{ path('modelo101b_confirmar', { 'id': entity.id }) }}")'><span class="badge center-block" style="padding-left: 2%; padding-right: 2%; background: green" title="Confirmar modelo">Nuevo</span></a>
+                                    {% elseif entity.estado == 2 and is_granted('ROLE_SUPER') %}
+                                        {#<span class="badge center-block" style="padding-left: 2%; padding-right: 2%; background: red">Confirmado</span>#}
+                                        <a id="revertir" href="#" onclick='revertir("{{ path('modelo101b_revertir', { 'id': entity.id }) }}")'><span class="badge center-block" style="padding-left: 2%; padding-right: 2%; background: red" title="Revertir estado">Confirmado</span></a>
+                                    {% elseif entity.estado == 2 and not is_granted('ROLE_SUPER') %}
+                                        <span class="badge center-block" style="padding-left: 2%; padding-right: 2%; background: red">Confirmado</span>
+                                    {% elseif entity.estado == 3 %}
+                                        <span class="badge center-block" style="padding-left: 2%; padding-right: 2%; background: blue">Cerrado</span>
+                                    {% endif %}
+                                </td>
+                                <td align="center">
+                                        <a href="{{ path('modelo101b_show', { 'id': entity.id }) }}"><i class="fa fa-edit"></i></a>
+
+                                </td>
+                                <td align="center">
+                                    {% if entity.estado == 1 %}
+                                    <a href="{{ path('modelo101b_edit', { 'id': entity.id }) }}"><i class="fa fa-edit"></i></a>
+                                    {% endif %}
+                                </td>
+                                <td align="center">
+                                    {% if entity.estado == 1 %}
+                                    <a id="delete" href="#" onclick='eliminar("{{ path('modelo101b_delete', { 'id': entity.id }) }}")'><i class="fa fa-times-circle"></i></a>
+                                    {% endif %}
+                                </td>
+
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+    </div><!-- /.row -->
+
+
+{% endblock %}

@@ -1,0 +1,136 @@
+{% extends '::front_layout.html.twig' %}
+
+ {% block modelo %} active {% endblock %}
+{% block modelo1006 %} class="active" {% endblock %}
+{% block title %}Pasivos en el ext.{% endblock %}
+{% block body -%}
+    <h1><i class="fa fa-credit-card"></i>Pasivos Ext.(1006)</h1>
+
+    <div class="box box-solid box-primary">
+        <div  class="box-header">
+            <h3 class="box-title col-lg-11">Adicionar Pasivos Ext.(1006)</h3>
+            <a class="col-lg-1" href="{{ path('modelo1006') }}">
+                <i class="fa fa-fw fa-reply ">Volver</i>
+            </a>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <form id="form_grupo" action="{{ path('modelo1006_create') }} " role="form"
+              method="post" {{ form_enctype(form) }}>
+            <div class="box-body">
+                {{ form_errors(form) }}
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            {{ form_row(form.contrato) }}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            {{ form_row(form.prestamista) }}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            {{ form_row(form.pais) }}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            {{ form_row(form.termino) }}
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            {{ form_row(form.moneda) }}
+                        </div>
+
+
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            {{ form_row(form.impPrincipal) }}
+                        </div>
+
+
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            {{ form_row(form.aPago) }}
+                        </div>
+
+
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            {{ form_row(form.princiVdo) }}
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            {{ form_row(form.impIntcov) }}
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            {{ form_row(form.impIntmor) }}
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- /.box-body -->
+
+            <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Aceptar</button>
+                <a class="btn btn-default" href="{{ path('modelo1006') }}">Cancelar</a>
+            </div>
+
+            {{ form_errors(form) }}
+            {{ form_widget(form._token) }}
+
+    </form>
+    </div>
+{% endblock %}
+{% block javascripts %}
+
+    <script>
+        $('#appbundle_modelo1006_impPrincipal').blur(function() {
+
+            if($('#appbundle_modelo1006_impPrincipal').val() =='' ) {
+                $('#appbundle_modelo1006_aPago').val('');
+            }
+        });
+        $('#appbundle_modelo1006_aPago').blur(function() {
+
+            if($('#appbundle_modelo1006_impPrincipal').val() =='' ) {
+                $('#appbundle_modelo1006_aPago').val('');
+            }
+        });
+
+        $('#appbundle_modelo1006_termino').blur(function() {
+
+            if($('#appbundle_modelo1006_termino').val() >=1 ) {
+                var value = $('#appbundle_modelo1006_termino').val()/360;
+                $('#appbundle_modelo1006_termino').val(value.toFixed(3));
+            }
+        });
+    </script>
+
+{% endblock %}

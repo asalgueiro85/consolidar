@@ -1,0 +1,307 @@
+{% extends '::front_layout.html.twig' %}
+
+ {% block modelo %} active {% endblock %}
+{% block modelo1006 %} class="active" {% endblock %}
+
+{% block title %}Pasivos en el ext.{% endblock %}
+{% block body -%}
+    <h1><i class="fa fa-credit-card"></i> Pasivos Ext.(1006)</h1>
+
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Detalles Pasivos Ext.(1006): {{ entities[0].modelo.usuario.empresa.nombre }}</h3>
+
+                    <div class="pull-right">
+                        <a href="{{ path('modelo1006') }}" class="btn  btn-xs btn-primary">Volver</a>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+
+
+                    <table id="example2" class="table table-bordered table-hover dataTable">
+                        <thead>
+                        <tr >
+                            <th style="visibility: hidden"> id</th>
+                            <th> NUM_CONTRA</th>
+                            <th> PRESTAMISTA </th>
+                            <th> COD_PAIS </th>
+                            <th>TERMINO </th>
+                            <th>SIG_MONEDA</th>
+                            <th>IMP_PRINCI</th>
+                            <th>A_PAGO</th>
+                            <th>PRINCI_VDO</th>
+                            <th>IMP_INTCOV</th>
+                            <th>IMP_INTMOR</th>
+                        </tr>
+
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <td style="visibility: hidden">
+                                <input type="hidden" id="addid">
+                            </td>
+                            <td>
+                                <input type="text" id="addcontrato" placeholder="contrato" class="form-control" style="width: 100%">
+                            </td>
+                            <td>
+                                <input type="text" id="addprestamista" placeholder="prestamista" class="form-control" style="width: 100%">
+                            </td>
+                            <td>
+                                <select type="text" id="addpais" placeholder="pais" class="form-control" style="width: 100%">
+                                    <option value=""></option>
+                                    {% for pais in pais %}
+                                        <option value="{{ pais.id }}">{{ pais.abrev }}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" id="addtermino" placeholder="termino" class="form-control" style="width: 100%">
+                            </td>
+                            <td>
+                                <select type="text" id="addmoneda" placeholder="moneda" class="form-control" style="width: 100%">
+                                    <option value=""></option>
+                                    {% for moneda in monedas %}
+                                        <option value="{{ moneda.id }}">{{ moneda.abrev }}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" id="addimpPrincipal" placeholder="impPrincipal" class="form-control" style="width: 100%">
+                            </td>
+                            <td>
+                                <div id="divaPago" class=" form-group">
+                                <input type="text" title=" " id="addaPago" placeholder="aPago" class="form-control" style="width: 100%">
+                                </div>
+                            </td>
+                            <td>
+                                <input type="text" id="addprinciVdo" placeholder="princiVdo" class="form-control" style="width: 100%">
+                            </td>
+                            <td>
+                                <input type="text" id="addimpIntcov" placeholder="impIntcov" class="form-control" style="width: 100%">
+                            </td>
+                            <td>
+                                <input type="text" id="addimpIntmor" placeholder="impIntmor" class="form-control" style="width: 100%">
+                            </td>
+                        </tr>
+                        </tfoot>
+                        <tbody>
+                        {% for entity in entities %}
+                            <tr data-valor="valor" class="click" >
+                                <td style="visibility: hidden">{{ entity.id }} </td>
+                                <td>{{ entity.contrato }}</td>
+                                <td>{{ entity.prestamista }}</td>
+                                <td>{{ entity.pais }}</td>
+                                <td>{{ entity.termino }}</td>
+                                <td>{{ entity.moneda }}</td>
+                                <td>{{ entity.impPrincipal }}</td>
+                                <td>{{ entity.aPago }}</td>
+                                <td>{{ entity.princiVdo }}</td>
+                                <td>{{ entity.impIntcov }}</td>
+                                <td>{{ entity.impIntmor }}</td>
+                                <td hidden="hidden">{{ entity.moneda.id }}</td>
+                                <td hidden="hidden">{{ entity.pais.id }}</td>
+
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+
+
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+    </div><!-- /.row -->
+
+
+{% endblock %}
+    {% block javascripts %}
+
+        <script>
+var valcontrato, valprestamista, valpais, valtermino, valmoneda, valimpPrincipal,
+        valaPago, valprinciVdo, valimpIntcov, valimpIntmor;
+var datacell;
+
+
+//function validateDecimal(value)    {
+//    var RE = /^\d*\.?\d*$/;
+//    if(RE.test(value)){
+//        return true;
+//    }else{
+//        return false;
+//    }
+//}
+//$(this)[0].setCustomValidity('Passwords must match');
+
+$('#addtermino').blur(function() {
+
+    if($('#addtermino').val() >=1 ) {
+        var value = $('#addtermino').val()/360;
+        $('#addtermino').val(value.toFixed(3));
+    }
+});
+
+$('#addimpPrincipal').blur(function() {
+
+    if($('#addimpPrincipal').val() =='' || $('#addimpPrincipal').val() < 1) {
+        $('#addaPago').val(0);
+    }
+});
+$('#addaPago').blur(function() {
+
+    if($('#addimpPrincipal').val() =='' || $('#addimpPrincipal').val() < 1) {
+        $('#addaPago').val(0);
+    }
+});
+$('#addaPago').focus(function() {
+
+    $('#divaPago').removeClass('has-error');
+    $('#addaPago').attr('title', '');
+});
+
+                $(".click").click(function(e) {
+                    e.preventDefault();
+                    datacell = $(this).context.cells;
+
+                    valcontrato = datacell[1].innerHTML;
+                    valprestamista = datacell[2].innerHTML;
+                    valpais = datacell[3].innerHTML;
+                    valtermino = datacell[4].innerHTML;
+                    valmoneda = datacell[11].innerHTML;
+                    valimpPrincipal = datacell[6].innerHTML;
+                    valaPago = datacell[7].innerHTML;
+                    valprinciVdo = datacell[8].innerHTML;
+                    valimpIntcov = datacell[9].innerHTML;
+                    valimpIntmor = datacell[10].innerHTML;
+
+                    $('#addid').val(datacell[0].innerHTML);
+                    $('#addcontrato').val(datacell[1].innerHTML);
+                    $('#addprestamista').val(datacell[2].innerHTML);
+                    $('#addpais').val(datacell[12].innerHTML);
+                    $('#addtermino').val(datacell[4].innerHTML);
+                    $('#addmoneda').val(datacell[11].innerHTML);
+                    $('#addimpPrincipal').val(datacell[6].innerHTML);
+                    $('#addaPago').val(datacell[7].innerHTML);
+                    $('#addprinciVdo').val(datacell[8].innerHTML);
+                    $('#addimpIntcov').val(datacell[9].innerHTML);
+                    $('#addimpIntmor').val(datacell[10].innerHTML);
+
+                });
+//$("#addimpPrincipal").keypress(function(e){
+//    if (e.which == 13)
+//    alert($("#addimpPrincipal").is(":focus"));
+//});
+
+            $(document).keypress(function(e) {
+
+                if (e.which == 13) {
+//                    if($('#addimpPrincipal').is(":focus"))
+//                    alert($("#addimpPrincipal").is(":focus"));
+//                    return;
+
+if(
+        $('#addimpPrincipal').val() =='' || $('#addimpIntmor').val() =='' || $('#addimpIntcov').val() =='' || $('#addprinciVdo').val() =='' || $('#addmoneda').val() =='' || $('#addtermino').val() =='' || $('#addaPago').val() =='' || $('#addcontrato').val() =='' || $('#addprestamista').val() =='')
+                    return;
+
+
+
+
+if(($('#addimpPrincipal').val() =='' && $('#addaPago').val() =='') || ($('#addimpPrincipal').val() !='' && $('#addaPago').val() !=''))
+{
+                    var data = {
+                        id: {{ entity }},
+                        addcontrato: $('#addcontrato').val(),
+                        addid: $('#addid').val(),
+                        addprestamista: $('#addprestamista').val(),
+                        addpais: $('#addpais').val(),
+                        addtermino: $('#addtermino').val(),
+                        addmoneda: $('#addmoneda').val(),
+                        addimpPrincipal: $('#addimpPrincipal').val(),
+                        addaPago: $('#addaPago').val(),
+                        addprinciVdo: $('#addprinciVdo').val(),
+                        addimpIntcov: $('#addimpIntcov').val(),
+                        addimpIntmor: $('#addimpIntmor').val()
+
+                    };
+
+                    $.ajax({
+                        type: 'post',
+                        url: '{{ path("modelo1006_addrow") }}',
+                        data: data,
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data[0].result == 1) {
+
+                                $('#example2  tr:last').after('<tr> <td style="visibility: hidden">' + data[0].id +
+                                '</td> <td>' + data[0].addcontrato +
+                                '</td> <td>' + data[0].addprestamista +
+                                '</td> <td>' + data[0].addpais +
+                                '</td> <td>' + data[0].addtermino +
+                                '</td> <td>' + data[0].addmoneda +
+                                '</td> <td>' + data[0].addimpPrincipal +
+                                '</td> <td>' + data[0].addaPago +
+                                '</td> <td>' + data[0].addprinciVdo +
+                                '</td> <td>' + data[0].addimpIntcov +
+                                '</td> <td>' + data[0].addimpIntmor +
+                                '</td> <td hidden="hidden">' + data[0].addmonedaid +
+                                '</td> <td hidden="hidden">' + data[0].addpaisid + '</td> </tr>');
+
+
+                            }
+                            if (data[0].result == -1) {//console.info(valaddcontrato);
+                                datacell[1].innerHTML = data[0].addcontrato;
+                                datacell[2].innerHTML = data[0].addprestamista;
+                                datacell[3].innerHTML = data[0].addpais;
+                                datacell[4].innerHTML = data[0].addtermino;
+                                datacell[5].innerHTML = data[0].addmoneda;
+                                datacell[6].innerHTML = data[0].addimpPrincipal;
+                                datacell[7].innerHTML = data[0].addaPago;
+                                datacell[8].innerHTML = data[0].addprinciVdo;
+                                datacell[9].innerHTML = data[0].addimpIntcov;
+                                datacell[10].innerHTML = data[0].addimpIntmor;
+                                datacell[11].innerHTML = data[0].addmonedaid;
+                                datacell[12].innerHTML = data[0].addpaisid;
+                            }
+
+                            $('#addid').val('');
+                            $('#addcontrato').val('');
+
+                            $('#addprestamista').val('');
+                            $('#addpais').val('');
+                            $('#addtermino').val('');
+                            $('#addmoneda').val('');
+                            $('#addimpPrincipal').val('');
+                            $('#addaPago').val('');
+                            $('#addprinciVdo').val('');
+                            $('#addimpIntcov').val('');
+                            $('#addimpIntmor').val('');
+
+
+                        }
+
+
+                    });
+
+
+                }
+                    else{
+    $('#divaPago').addClass('has-error');
+    $('#addaPago').attr('title', 'Este campo no puede ser nulo.');
+//    $('#addaPago').attr("aria-invalid", "true");
+    return;
+}
+            }
+
+
+            });
+
+        </script>
+
+    {% endblock %}

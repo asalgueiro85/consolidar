@@ -1,0 +1,116 @@
+{% extends '::front_layout.html.twig' %}
+
+ {% block configuracion %} active {% endblock %}
+ {% block usuario %} class="active" {% endblock %}
+{% block title %}Cuentas por cobrar ext.{% endblock %}
+{% block body -%}
+    <h1><i class="fa fa-columns"></i>Cuentas por Cobrar en el Exterior (101B)</h1>
+
+    <div class="box box-solid box-primary">
+        <div  class="box-header">
+            <h3 class="box-title col-lg-11">Modificar Cuentas por Cobrar</h3>
+            <a class="col-lg-1" href="{{ path('modelo101b') }}">
+                <i class="fa fa-fw fa-reply ">Volver</i>
+            </a>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <form id="form_grupo_edit" action="{{ path('modelo101b_update',{'id':entity.id}) }} " role="form" method="post" >
+            <input type="hidden" name="_method" value="put"/>
+            <div class="box-body">
+                {{ form_errors(edit_form) }}
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            {{ form_row(edit_form.extNoVen) }}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            {{ form_row(edit_form.ext060) }}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            {{ form_row(edit_form.ext6190) }}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            {{ form_row(edit_form.extMas90) }}
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            {{ form_row(edit_form.extTotVe) }}
+                        </div>
+
+
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            {{ form_row(edit_form.extEfecto) }}
+                        </div>
+
+
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            {{ form_row(edit_form.litJudE) }}
+                        </div>
+
+
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            {{ form_row(edit_form.litProtE) }}
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            {{ form_row(edit_form.sentPentE) }}
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            {{ form_row(edit_form.tVtCrEx) }}
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            {{ form_row(edit_form.contravalor) }}
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- /.box-body -->
+
+            <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Aceptar</button>
+                <a class="btn btn-default" href="{{ path('modelo101b') }}">Cancelar</a>
+            </div>
+
+            {{ form_errors(edit_form) }}
+            {{ form_widget(edit_form._token) }}
+    </div>
+    </form>
+    </div>
+{% endblock %}

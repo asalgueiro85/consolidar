@@ -1,0 +1,62 @@
+{% extends '::front_layout.html.twig' %}
+
+ {% block configuracion %} active {% endblock %}
+ {% block nomencladores %} active {% endblock %}
+ {% block moneda %} class="active" {% endblock %}
+{% block title %}Monedas{% endblock %}
+{% block body -%}
+    <h1><i class="fa fa-usd"></i> Moneda</h1>
+
+    <div class="box box-solid box-primary">
+        <div  class="box-header">
+            <h3 class="box-title col-lg-11">Adicionar Moneda</h3>
+            <a class="col-lg-1" href="{{ path('empresa') }}">
+                <i class="fa fa-fw fa-reply ">Volver</i>
+            </a>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <form id="form_grupo" action="{{ path('moneda_create') }} " role="form"
+              method="post" {{ form_enctype(form) }}>
+            <div class="box-body">
+                {{ form_errors(form) }}
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                {{ form_row(form.nombre) }}
+                            </div>
+                            <div class="col-md-6 form-group">
+                                {{ form_row(form.abrev) }}
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            {{ form_row(form.descripcion) }}
+                        </div>
+                    </div>
+
+                    {#<div class="col-md-12">#}
+                        {#<div class="form-group">#}
+                            {#{{ form_row(form.desccripcion) }}#}
+                        {#</div>#}
+
+
+
+                    {#</div>#}
+
+
+                </div>
+                <!-- /.box-body -->
+
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Aceptar</button>
+                    <a class="btn btn-default" href="{{ path('moneda') }}">Cancelar</a>
+                </div>
+
+                {{ form_errors(form) }}
+                {{ form_widget(form._token) }}
+            </div>
+        </form>
+    </div>
+{% endblock %}

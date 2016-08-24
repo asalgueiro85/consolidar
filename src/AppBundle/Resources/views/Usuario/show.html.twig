@@ -1,0 +1,45 @@
+{% extends '::base.html.twig' %}
+{% block title %}Usuarios{% endblock %}
+{% block body -%}
+    <h1>Usuario</h1>
+
+    <table class="record_properties">
+        <tbody>
+
+            <tr>
+                <th>Nombre</th>
+                <td>{{ entity.name }}</td>
+            </tr>
+            <tr>
+                <th>Area</th>
+                <td>{{ entity.area }}</td>
+            </tr>
+            <tr>
+                <th>Cargo</th>
+                <td>{{ entity.cargo }}</td>
+            </tr>
+            <tr>
+                <th>Rol</th>
+                <td>{{ entity.role }}</td>
+            </tr>
+            <tr>
+                <th>Usurio</th>
+                <td>{{ entity.usurio }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('usuario') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('usuario_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

@@ -1,0 +1,167 @@
+{% extends '::front_layout.html.twig' %}
+
+ {% block reportes %} active {% endblock %}
+ {% block consolidar %}
+     {% if app.user.grupo %}
+         active
+     {% endif %}
+
+ {% endblock %}
+{% block cmodelo1007 %}
+    {% if app.user.grupo %}
+        class="active"
+    {% endif %}
+
+{% endblock %}
+{% block rmodelo1007 %}
+    {% if not app.user.grupo %}
+        class="active"
+    {% endif %}
+{% endblock %}
+
+{% block title %}Flujo-Pasivos en el ext.{% endblock %}
+{% block body -%}
+    {% if app.user.grupo %}
+        <h1><i class="fa fa-certificate"></i>Pasivos Externos Flujos(1007)</h1>
+    {% else %}
+        <h1><i class="fa fa-circle-o"></i>Pasivos Externos Flujos(1007)</h1>
+    {% endif %}
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+
+                    <div class="row">
+                        <form action="{{ path('imprimir_excel_cmodelo1007') }} " role="form"
+                              method="post" id="form">
+                    <div class="pull-right col-lg-1">
+                        <button class="btn  btn-xs btn-primary" id="btncmodelo1007" type="submit">Imprimir</button>
+                    </div>
+                    <div class="pull-right col-lg-1"  style="margin-right: 30px">
+                        <label >
+                            <select aria-controls="example1" size="1" name="mes" id="mes">
+
+                                <option selected="selected" value="13">Todos</option>
+                                <option value="01">Enero</option>
+                                <option value="02">Febrero</option>
+                                <option value="03">Marzo</option>
+                                <option value="04">Abril</option>
+                                <option value="05">Mayo</option>
+                                <option value="06">Junio</option>
+                                <option value="07">Julio</option>
+                                <option value="08">Agosto</option>
+                                <option value="09">Septiembre</option>
+                                <option value="10">Octubre</option>
+                                <option value="11">Noviembre</option>
+                                <option value="12">Diciembre</option>
+
+                            </select>
+                        </label>
+                    </div>
+                            <input type="text" hidden="hidden" id="option" name="option"></input>
+                        </form>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+
+
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>COD_ONE</th>
+                            <th> NUM_CONTRA </th>
+                            <th> COD_INDIC </th>
+                            <th>PRESTAMIST</th>
+                            <th>COD_PAIS</th>
+                            <th>SIG_MONEDA</th>
+                            <th>IMP_NFREC</th>
+                            <th>TERMINO</th>
+                            <th>IMP_TOTPR</th>
+                            <th>IMP_INTCMV</th>
+                            <th>PRINCI_VDO</th>
+                            <th>IMP_INTCMN</th>
+                            <th>IMP_INTPV</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for entity in entities %}
+                            <tr>
+                                <td>{{ entity.modelo.usuario.empresa.codigo }}</td>
+                                <td>{{ entity.contrato }}</td>
+                                <td>490</td>
+                                <td>{{ entity.prestamista }}</td>
+                                <td>{{ entity.pais.abrev }}</td>
+                                <td>{{ entity.moneda.abrev }} </td>
+                                <td>{{ entity.impNfrec }} </td>
+                                <td>{{ entity.termino }}</td>
+                                <td>{{ entity.impTotpr }} </td>
+                                <td>{{ entity.impIntcmv }} </td>
+                                <td>{{ entity.princiVdo }} </td>
+                                <td>{{ entity.impIntcmn }} </td>
+                                <td>{{ entity.impIntpv }} </td>
+
+
+
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                        <tfoot style="border: solid">
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th >TOTAL</th>
+                        <th>{{ data.impNfrec }} </th>
+                        <th></th>
+                        <th>{{ data.impTotpr }} </th>
+                        <th>{{ data.impIntcmv }} </th>
+                        <th>{{ data.princiVdo }} </th>
+                        <th>{{ data.impIntcmn }} </th>
+                        <th>{{ data.impIntpv }} </th>
+
+
+                        </tfoot>
+                    </table>
+
+
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+    </div><!-- /.row -->
+
+
+{% endblock %}
+{% block javascripts %}
+
+    <script>
+        var datacell;
+        if("{{ mes }}" != -1)
+            $('#mes').val("{{ mes }}");
+
+        $('#mes').change(function() {
+
+            $('#option').val(2);
+            $('#form').submit();
+
+        });
+        $('#btncmodelo1007').click(function() {
+
+            $('#option').val(1);
+
+        });
+
+
+
+
+    </script>
+
+{% endblock %}
+
+

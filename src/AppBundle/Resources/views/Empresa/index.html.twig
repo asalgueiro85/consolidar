@@ -1,0 +1,74 @@
+{% extends '::front_layout.html.twig' %}
+
+ {% block empresa %} class="active" {% endblock %}
+
+{% block title %}Empresas{% endblock %}
+{% block body -%}
+
+    <h1><i class="fa fa-user"></i> Empresas</h1>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Listado de Empresas</h3>
+
+                    <div class="pull-right">
+                        <a href="{{ path('empresa_new') }}" class="btn  btn-xs btn-primary">Adicionar</a>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+
+
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Codigo</th>
+                            <th>Telefono</th>
+                            <th  class="col-xs-1 text-center">Estado</th>
+                            <th  class="col-xs-1 text-center">Editar</th>
+                            <th  class="col-xs-1 text-center">Eliminar</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for entity in entities %}
+                            <tr>
+                                <td>
+                                    {{ entity.nombre }}
+                                </td>
+                                <td>
+                                    {{ entity.codigo }}
+                                </td>
+                                <td>
+                                    {{ entity.telefono }}
+                                </td>
+                                <td>
+                                    {% if entity.estado %}
+                                        <span class="badge center-block" style="padding-left: 2%; padding-right: 2%; background: green">Activo</span>
+                                    {% else %}
+                                        <span class="badge center-block" style="padding-left: 2%; padding-right: 2%; background: red">Inactivo</span>
+                                    {% endif %}
+                                </td>
+                                <td align="center">
+                                    <a href="{{ path('empresa_edit', { 'id': entity.id }) }}"><i class="fa fa-edit"></i></a>
+                                </td>
+                                <td align="center"><a id="delete" href="#" onclick='eliminar("{{ path('empresa_delete', { 'id': entity.id }) }}")'><i class="fa fa-times-circle"></i></a> </td>
+
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+    </div><!-- /.row -->
+
+
+{% endblock %}

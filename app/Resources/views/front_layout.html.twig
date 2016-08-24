@@ -1,0 +1,268 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}{% endblock %}
+  {% block menu_superior %}
+      <header class="main-header ">
+
+          <!-- Logo -->
+          {#<a href="index2.html" class="logo"><b>SCIE</b></a>#}
+          <a href="index2.html" class="logo"><b></b>Grupo Empresarial</a>
+
+          <!-- Header Navbar: style can be found in header.less -->
+          <nav class="navbar navbar-static-top" role="navigation">
+
+              <!-- Sidebar toggle button-->
+              <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                  <span class="sr-only">Toggle navigation</span>
+              </a>
+
+              <div class="navbar-custom-menu">
+                  <ul class="nav navbar-nav">
+
+
+                      {#<li class="dropdown notifications-menu">#}
+
+                          {#<div style="padding: 10px 10px 10px 10px; ">#}
+                              {#<a href="#" class="btn btn-block btn-info btn-sm bottom-left">Arcas</a>#}
+                          {#</div>#}
+                      {#</li>#}
+                      {#<li class="dropdown notifications-menu">#}
+
+                          {#<div style="padding: 10px 10px 10px 10px; ">#}
+                              {#<a href="#" class="btn btn-block btn-info btn-sm">Satic</a>#}
+                          {#</div>#}
+                      {#</li>#}
+
+
+                      <!-- User Account: style can be found in dropdown.less -->
+                      <li class="dropdown user user-menu">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                              {% if app.user.username == "admin" %}
+                                  <img src="{{ asset('uploads/users/admin/avatar.jpg') }}" class="user-image"
+                                       alt="User Image"/>
+                                  <span class="hidden-xs">Administrador</span>
+                              {% else %}
+
+                                  {% if app.user.rutaFoto %}
+
+                                      <img src="{{ asset('uploads/users/') }}{{ app.user.usuario }}/{{ app.user.rutaFoto }}"
+                                           class="user-image" alt="User Image"/>
+                                  {% else %}
+                                      <img src="{{ asset('uploads/users/nophoto-male.jpg') }}" class="user-image"
+                                           alt="User Image"/>
+                                  {% endif %}
+
+                                  {#<img src="{{ asset('uploads/users/') }}{{ app.user.usuario }}/{{ app.user.rutaFoto }}" class="user-image" alt="User Image"/>#}
+                                  <span class="hidden-xs">{{ app.user.name }}</span>
+                              {% endif %}
+                          </a>
+                          <ul class="dropdown-menu">
+                              <!-- User image -->
+                              <li class="user-header">
+                                  {% if app.user.username == "admin" %}
+                                      <img src="{{ asset('uploads/users/admin/avatar.jpg') }}" class="img-circle"
+                                           alt="User Image"/>
+                                      <p>
+                                          Administrador
+                                          <small>Administrador del Sitio</small>
+                                      </p>
+                                  {% else %}
+
+                                      {% if app.user.rutaFoto %}
+
+                                          <img src="{{ asset('uploads/users/') }}{{ app.user.usuario }}/{{ app.user.rutaFoto }}"
+                                               class="img-circle" alt="User Image"/>
+                                      {% else %}
+                                          <img src="{{ asset('uploads/users/nophoto-male.jpg') }}" class="img-circle"
+                                               alt="User Image"/>
+
+                                      {% endif %}
+                                      <p>
+                                      {{ app.user.name }}
+
+                                      {#<small>{{ app.user.area }}</small>#}
+                                      {% if not app.user.grupo %}
+                                          - {{ app.user.empresa }}
+                                          </p>
+                                      {% endif %}
+                                  {% endif %}
+
+
+                              </li>
+
+                              <!-- Menu Footer-->
+                              <li class="user-footer">
+                                  <div class="pull-left">
+                                      {% if app.user.username != "admin" %}
+                                          <a href="{{ path('usuario_edit', { 'id': app.user.id }) }}"
+                                             class="btn btn-default btn-flat">Perfil</a>
+                                      {% endif %}
+                                  </div>
+                                  <div class="pull-right">
+                                      <a href="{{ path('logout') }}" class="btn btn-default btn-flat">Salir</a>
+                                  </div>
+                              </li>
+                          </ul>
+                      </li>
+                  </ul>
+              </div>
+          </nav>
+      </header>
+
+
+  {% endblock %}
+
+
+{% block menu %}
+
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar b">
+
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+
+            <!-- Sidebar user panel -->
+            <div class="user-panel">
+                <img src="{{ asset('uploads/logo.png') }}" class="img-thumbnail"
+                     alt="User Image"/>
+            </div>
+
+
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu">
+                <li class="header">Menú Principal</li>
+                <li {% block estadistica %}  {% endblock %}>
+                    <a href="{{ path('homepage') }}"><i class="fa fa-pie-chart"></i>Estadísticas</a>
+                </li>
+                {% if is_granted('ROLE_SUPER') or app.user.username == "admin" %}
+
+                    <li {% block empresa %} {% endblock %}>
+                        <a href="{{ path('empresa') }}"><i class="fa fa-user"></i>Empresas</a>
+                    </li>
+                {% endif %}
+
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER') %}
+                    <li class="treeview {% block modelo %}  {% endblock %}">
+                        <a href="#">
+                            <i class="fa fa-book"></i>
+                            <span>Modelos</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li {% block modelo101b %}  {% endblock %}>
+                                <a href="{{ path('modelo101b') }}"><i class="fa fa-columns"></i >Cta. Cobrar en el Ext.(101B)</a>
+                            </li>
+                            <li {% block modelo1006 %}  {% endblock %}>
+                                <a href="{{ path('modelo1006') }}"><i class="fa fa-credit-card"></i>Pasivos Ext.(1006)</a>
+                            </li>
+                            <li {% block modelo1007 %}  {% endblock %}>
+                                <a href="{{ path('modelo1007') }}"><i class="fa fa-list-alt"></i>Pasivos Ext.-Flujos(1007)</a>
+                            </li>
+                        </ul>
+                    </li>
+                {% endif %}
+                {% if is_granted('ROLE_SUPER') or app.user.username == "admin" %}
+                    <li class="treeview {% block configuracion %}  {% endblock %}">
+                        <a href="#">
+                            <i class="fa fa-cog"></i>
+                            <span>Configuraciones</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li {% block grupo %}  {% endblock %}>
+                                <a href="{{ path('grupo') }}"><i class="fa fa-users"></i> Grupo</a>
+                            </li>
+                            <li {% block usuario %}  {% endblock %}>
+                                <a href="{{ path('usuario') }}"><i class="fa fa-user"></i>Usuarios</a>
+                            </li>
+
+                            <li class="treeview {% block nomencladores %}  {% endblock %}">
+                                <a href="#">
+                                    <i class="fa fa-cog"></i>
+                                    <span>Nomencladores</span>
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li {% block pais %}  {% endblock %}>
+                                        <a href="{{ path('pais') }}"><i class="fa fa-thumb-tack"></i> País</a>
+                                    </li>
+                                    <li {% block moneda %}  {% endblock %}>
+                                        <a href="{{ path('moneda') }}"><i class="fa fa-usd"></i> Moneda</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                {% endif %}
+
+                <li class="treeview {% block reportes %}  {% endblock %}">
+                    <a href="#">
+                        <i class="fa fa-list"></i>
+                        <span>Reportes</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    {% if (app.user.grupo is defined and app.user.grupo) or app.user.username == "admin" %}
+                        <ul class="treeview-menu">
+                            {#<a href="pages/UI/general.html"><i class="fa fa-circle-o"></i> Consolidar</a>#}
+                            <li class="treeview {% block consolidar %}  {% endblock %}">
+                                <a href="#">
+                                    <i class="fa fa-certificate"></i>
+                                    <span>Consolidar</span>
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li {% block cmodelo101b %}  {% endblock %} >
+                                        <a href="{{ path('imprimir_cmodelo101b') }}"><i class="fa fa-certificate"></i>
+                                            Cta. Cobrar Ext.(101B)</a>
+                                    </li>
+                                    <li {% block cmodelo1006 %}  {% endblock %}>
+                                        <a href="{{ path('imprimir_cmodelo1006') }}"><i class="fa fa-certificate"></i>
+                                            Pasivos Ext.(1006)</a>
+                                    </li>
+                                    <li {% block cmodelo1007 %}  {% endblock %}>
+                                        <a href="{{ path('imprimir_cmodelo1007') }}"><i class="fa fa-certificate"></i>
+                                            Pasivos Ext. Flujos(1007)</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    {% endif %}
+                    <ul class="treeview-menu">
+                        {% if (app.user.grupo is defined and not app.user.grupo) or app.user.username == "admin" %}
+
+
+                            <li {% block rmodelo101b %}  {% endblock %}>
+                                <a href="{{ path('imprimir_cmodelo101b') }}"><i class="fa fa-circle-o"></i>Cta. Cobrar en el Ext.(101B)</a>
+                            </li>
+                            <li {% block rmodelo1006 %}  {% endblock %}>
+                                <a href="{{ path('imprimir_cmodelo1006') }}"><i class="fa fa-circle-o"></i> Pasivos Ext.(1006)</a>
+                            </li>
+                            <li {% block rmodelo1007 %}  {% endblock %}>
+                                <a href="{{ path('imprimir_cmodelo1007') }}"><i class="fa fa-circle-o"></i>Pasivos Ext.-Flujos(1007)</a>
+                            </li>
+
+                        {% endif %}
+                        <li{% block rempresa %}  {% endblock %}>
+                            <a href="{{ path('imprimir_empresas') }}"><i
+                                        class="fa fa-circle-o"></i> Listado de empresas</a>
+                        </li>
+                        <li{% block rusuario %}  {% endblock %}>
+                            <a href="{{ path('imprimir_usuarios') }}"><i
+                                        class="fa fa-circle-o"></i> Listado de usuarios</a>
+                        </li>
+                    </ul>
+
+                </li>
+
+
+            </ul>
+
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+
+
+{% endblock %}

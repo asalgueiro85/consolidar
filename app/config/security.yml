@@ -1,0 +1,57 @@
+security:
+    firewalls:
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        frontend:
+            pattern: ^/*
+            provider: chain_provider
+            anonymous: ~
+            form_login:
+                login_path: login
+                check_path: login_check
+                default_target_path: homepage
+            logout:
+                path: logout
+                target: login
+                invalidate_session: false
+            anonymous: ~
+
+    encoders:
+        AppBundle\Entity\Usuario: sha1
+        Symfony\Component\Security\Core\User\User: sha1
+
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    providers:
+        chain_provider:
+            chain:
+                providers:  [user_db, in_memory]
+
+        in_memory:
+            memory:
+                users:
+                    admin:
+                        password: "SJD8f3uu3IOQK55lb0OueFgPG9U="
+                        roles: [ 'ROLE_SUPER' ]
+        user_db:
+            entity: { class: AppBundle\Entity\Usuario, property: usuario }
+
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/grupo/*, roles: ROLE_SUPER }
+        - { path: ^/empresa/*, roles: ROLE_SUPER }
+        - { path: ^/modelo101b/*, roles: [ROLE_SUPER, ROLE_ADMIN] }
+        - { path: ^/modelo1006/*, roles: [ROLE_SUPER, ROLE_ADMIN] }
+        - { path: ^/modelo1007/*, roles: [ROLE_SUPER, ROLE_ADMIN] }
+        - { path: ^/usuario/*, roles: ROLE_SUPER }
+        - { path: ^/imprimir_cmodelo101b, roles: [ROLE_SUPER, ROLE_ADMIN, ROLE_CLIENTE] }
+        - { path: ^/imprimir_cmodelo1006, roles: [ROLE_SUPER, ROLE_ADMIN, ROLE_CLIENTE] }
+        - { path: ^/imprimir_cmodelo1007, roles: [ROLE_SUPER, ROLE_ADMIN, ROLE_CLIENTE] }
+        - { path: ^/imprimir_empresas, roles: [ROLE_SUPER, ROLE_ADMIN, ROLE_CLIENTE] }
+        - { path: ^/cerrar_periodo, roles: ROLE_SUPER }
+        - { path: ^/moneda/*, roles: ROLE_SUPER }
+        - { path: ^/pais/*, roles: ROLE_SUPER }
+        - { path: ^/*, roles: [ROLE_USUARIO, ROLE_CLIENTE, ROLE_ADMIN, ROLE_SUPER] }

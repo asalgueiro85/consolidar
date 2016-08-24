@@ -1,0 +1,129 @@
+{% extends '::front_layout.html.twig' %}
+
+ {% block modelo %} active {% endblock %}
+{% block modelo1007 %} class="active" {% endblock %}
+{% block title %}Flujo-Pasivos en el ext.{% endblock %}
+{% block body -%}
+    <h1><i class="fa fa-list-alt"></i>Pasivos Externos Flujos(1007)</h1>
+
+    <div class="box box-solid box-primary">
+        <div  class="box-header">
+            <h3 class="box-title col-lg-11">Adicionar Pasivo Externo(1007)</h3>
+            <a class="col-lg-1" href="{{ path('modelo1007') }}">
+                <i class="fa fa-fw fa-reply ">Volver</i>
+            </a>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <form id="form_grupo" action="{{ path('modelo1007_create') }} " role="form"
+              method="post" {{ form_enctype(form) }}>
+            <div class="box-body">
+                {{ form_errors(form) }}
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            {{ form_row(form.contrato) }}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            {{ form_row(form.prestamista) }}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            {{ form_row(form.pais) }}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            {{ form_row(form.moneda) }}
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            {{ form_row(form.impNfrec) }}
+                        </div>
+
+
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            {{ form_row(form.termino) }}
+                        </div>
+
+
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            {{ form_row(form.impTotpr) }}
+                        </div>
+
+
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            {{ form_row(form.impIntcmv) }}
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            {{ form_row(form.princiVdo) }}
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            {{ form_row(form.impIntcmn) }}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            {{ form_row(form.impIntpv) }}
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- /.box-body -->
+
+            <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Aceptar</button>
+                <a class="btn btn-default" href="{{ path('modelo1007') }}">Cancelar</a>
+            </div>
+
+            {{ form_errors(form) }}
+            {{ form_widget(form._token) }}
+
+    </form>
+    </div>
+{% endblock %}
+{% block javascripts %}
+
+    <script>
+        $('#appbundle_modelo1007_termino').blur(function() {
+
+            if($('#appbundle_modelo1007_termino').val() >=1 ) {
+                var value = $('#appbundle_modelo1007_termino').val()/360;
+                $('#appbundle_modelo1007_termino').val(value.toFixed(3));
+            }
+        });
+
+    </script>
+
+{% endblock %}

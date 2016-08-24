@@ -1,0 +1,70 @@
+{% extends '::front_layout.html.twig' %}
+
+ {% block modelo %} active {% endblock %}
+{% block modelo1006 %} class="active" {% endblock %}
+
+{% block title %}Pasivos en el ext.{% endblock %}
+{% block body -%}
+    <h1><i class="fa fa-credit-card"></i> Modelo 1006</h1>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Detalles del modelo 1006: {{ entities[0].modelo.usuario.empresa.nombre }}</h3>
+
+                    <div class="pull-right">
+                        <a href="{{ path('modelo1006') }}" class="btn  btn-xs btn-primary">Volver</a>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+
+
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>NUM_CONTRA</th>
+                            <th> PRESTAMISTA </th>
+                            <th> COD_PAIS </th>
+                            <th>TERMINO </th>
+                            <th>SIG_MONEDA</th>
+                            <th>IMP_PRINCI</th>
+                            <th>A_PAGO</th>
+                            <th>PRINCI_VDO</th>
+                            <th>IMP_INTCOV</th>
+                            <th>IMP_INTMOR</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for entity in entities %}
+                            <tr>
+                                <td>{{ entity.contrato }}</td>
+                                <td>{{ entity.prestamista }}</td>
+                                <td>{{ entity.pais }}</td>
+                                <td>{{ entity.termino }}</td>
+                                <td>{{ entity.moneda }} </td>
+                                <td>{{ entity.impPrincipal }} </td>
+                                <td>{{ entity.aPago }} </td>
+                                <td>{{ entity.princiVdo }} </td>
+                                <td>{{ entity.impIntcov }} </td>
+                                <td>{{ entity.impIntmor }} </td>
+
+
+
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+    </div><!-- /.row -->
+
+
+{% endblock %}

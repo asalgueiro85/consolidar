@@ -1,0 +1,82 @@
+{% extends '::front_layout.html.twig' %}
+
+
+ {% block configuracion %} active {% endblock %}
+ {% block entidad %} class="active" {% endblock %}
+
+{% block title %}Grupo{% endblock %}
+{% block body -%}
+    <h1><i class="fa fa-users"></i> Grupo</h1>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="col-lg-12">
+                    <section class="invoice">
+                        <!-- title row -->
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h2 class="page-header">
+                                    <i class="fa fa-cog"></i> Información
+
+                                    <small class="pull-right">{% if entity %}
+
+                                            <a title="Configurar grupo" href="{{ path('grupo_edit', {'id': entity[0].id }) }}">
+                                                {{ entity[0].nombre }}
+                                            </a>
+
+                                        {% else %}
+                                            <a href="{{ path('grupo_new') }}"><i class="fa fa-plus-circle"></i> Definir grupo empresarial</a>
+                                        {% endif %}
+                                    </small>
+                                </h2>
+                            </div><!-- /.col -->
+                        </div>
+                        <!-- info row -->
+                        <div class="row invoice-info">
+                            <div class="col-sm-4 invoice-col">
+                                {% if entity %}
+                                {% if entity[0].rutalogo is empty %}
+                                    <img id="dir_foto" class="img-thumbnail" width="100%" src="{{ asset('uploads/images/logo/logo.png') }}"  alt=""/>
+                                {% else %}
+                                    <img id="dir_foto" class="img-thumbnail" width="100%" src="{{ asset('uploads/images/logo/')}}{{ entity[0].rutalogo }}" alt=""/>
+                                {% endif %}
+                                    {% else %}
+                                        <img id="dir_foto" class="img-thumbnail" width="100%" src="{{ asset('uploads/images/logo/logo.png') }}"  alt=""/>
+                                {% endif %}
+                            </div><!-- /.col -->
+                            <div class="col-sm-6 invoice-col">
+                            <h3>    <address>
+                                    <strong>Nombre:</strong>
+                                        {% if entity %}
+                                        {{ entity[0].nombre }}
+                                        {% endif %}
+                                    <br>
+                                    <b>Código :</b> {% if entity %}
+                                        {{ entity[0].codigo }}
+                                    {% endif %}<br/>
+                                    <b>Firma1 :</b> {% if entity %}
+                                        {{ entity[0].firma1 }}
+                                    {% endif %}<br/>
+                                    <b>Firma2 :</b> {% if entity %}
+                                        {{ entity[0].firma2 }}
+                                    {% endif %}<br/>
+                                </address>
+                            </h3>
+                            </div><!-- /.col -->
+                        </div><!-- /.row -->
+
+                        <br/>
+                    </section><!-- /.content -->
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+    </div><!-- /.row -->
+
+
+{% endblock %}

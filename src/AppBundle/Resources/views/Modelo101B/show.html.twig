@@ -1,0 +1,72 @@
+{% extends '::front_layout.html.twig' %}
+
+ {% block modelo %} active {% endblock %}
+{% block modelo101b %} class="active" {% endblock %}
+
+
+{% block body -%}
+    <h1><i class="fa fa-columns"></i> Modelo 101b</h1>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Detalles del modelo 101b: {{ entity.usuario.empresa.nombre }}</h3>
+
+                    <div class="pull-right">
+                        <a href="{{ path('modelo101b') }}" class="btn  btn-xs btn-primary">Volver</a>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+
+
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>EXT_No_VEN</th>
+                            <th> EXT_0_60 </th>
+                            <th> EXT_61_90 </th>
+                            <th>EXT_MAS90 </th>
+                            <th>EXT_TOT_VE</th>
+                            <th>EXT_EFECTO</th>
+                            <th>LIT_JUD_E</th>
+                            <th>LIT_PROT_E</th>
+                            <th>SENT_PEN_E</th>
+                            <th>T_VT_CR_EX</th>
+                            <th>Contravalor</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {#{% for entity in entities %}#}
+                            <tr>
+                                <td>{{ entity.extNoVen }}</td>
+                                <td>{{ entity.ext060 }}</td>
+                                <td>{{ entity.ext6190 }}</td>
+                                <td>{{ entity.extMas90 }}</td>
+                                <td>{{ entity.extTotVe }} </td>
+                                <td>{{ entity.extEfecto }} </td>
+                                <td>{{ entity.litJudE }} </td>
+                                <td>{{ entity.litProtE }} </td>
+                                <td>{{ entity.sentPentE }} </td>
+                                <td>{{ entity.tVtCrEx }} </td>
+                                <td>{{ entity.contravalor }} </td>
+
+
+
+                            </tr>
+                        {#{% endfor %}#}
+                        </tbody>
+                    </table>
+
+
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+    </div><!-- /.row -->
+
+
+{% endblock %}

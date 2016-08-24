@@ -1,0 +1,109 @@
+{% extends '::front_layout.html.twig' %}
+
+ {% block configuracion %} active {% endblock %}
+ {% block empresa %} class="active" {% endblock %}
+
+{% block title %}Empresas{% endblock %}
+{% block body -%}
+    <h1><i class="fa fa-user"></i> Empresa</h1>
+
+    <div class="box box-solid box-primary">
+        <div  class="box-header">
+            <h3 class="box-title col-lg-11">Adicionar Empresa</h3>
+            <a class="col-lg-1" href="{{ path('empresa') }}">
+                <i class="fa fa-fw fa-reply ">Volver</i>
+            </a>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <form id="form_grupo" action="{{ path('empresa_create') }} " role="form"
+              method="post" {{ form_enctype(form) }}>
+            <div class="box-body">
+                {{ form_errors(form) }}
+                <div class="row">
+                    <div class="col-md-5">
+
+                        <div class="panel">
+                            <div class="box box-solid box-success">
+                                <div class="box-header">
+                                    {{ form_widget(form.logo) }}
+                                </div>
+                                <div class="box-body">
+                                    <img id="dir_foto" class="img-thumbnail" width="100%"
+                                         src="{{ asset('uploads/images/logo/logo.png') }}" alt=""/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="form-group">
+                            {{ form_row(form.nombre) }}
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                    {{ form_row(form.codigo) }}
+                            </div>
+                            <div class="col-md-6 form-group">
+                                    {{ form_row(form.telefono) }}
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-8 form-group">
+                                    {{ form_row(form.direccion) }}
+                            </div>
+                            <div class="col-md-4 form-group">
+                                    {{ form_label(form.estado) }}
+                                {{ form_widget(form.estado) }}
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            {{ form_row(form.firma1) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_row(form.firma2) }}
+                        </div>
+
+
+
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            {{ form_row(form.desccripcion) }}
+                        </div>
+
+
+
+                    </div>
+
+
+                </div>
+                <!-- /.box-body -->
+
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Aceptar</button>
+                    <a class="btn btn-default" href="{{ path('empresa') }}">Cancelar</a>
+                </div>
+
+                {{ form_errors(form) }}
+                {{ form_widget(form._token) }}
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+
+
+
+    {% block javascripts %}
+        <script>
+            $("input#appbundle_empresa_logo").change(function () {
+                var image = this.files[0];
+                $('#dir_foto').attr("src", window.URL.createObjectURL(image));
+            });
+        </script>
+
+    {% endblock %}

@@ -1,0 +1,405 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Modelo1007
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Modelo1007Repository")
+ */
+class Modelo1007
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="contrato", type="string", length=20)
+     */
+    private $contrato;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="prestamista", type="string", length=20)
+     */
+    private $prestamista;
+
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="Moneda", inversedBy="modelo1007")
+     */
+    protected $moneda;
+
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="Pais", inversedBy="modelo1007")
+     */
+    protected $pais;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="termino", type="float")
+     */
+    private $termino;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="imp_nfrec", type="float")
+     */
+    private $impNfrec;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="imp_totpr", type="float")
+     */
+    private $impTotpr;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="imp_intcmv", type="float")
+     */
+    private $impIntcmv;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="princi_vdo", type="float")
+     */
+    private $princiVdo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="imp_intcmn", type="float")
+     */
+    private $impIntcmn;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="imp_intpv", type="float")
+     */
+    private $impIntpv;
+
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="Modelo", inversedBy="modelos1007", cascade={"persist"})
+     */
+    protected $modelo;
+
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set contrato
+     *
+     * @param string $contrato
+     *
+     * @return Modelo1007
+     */
+    public function setContrato($contrato)
+    {
+        $this->contrato = $contrato;
+
+        return $this;
+    }
+
+    /**
+     * Get contrato
+     *
+     * @return string
+     */
+    public function getContrato()
+    {
+        return $this->contrato;
+    }
+
+    /**
+     * Set prestamista
+     *
+     * @param string $prestamista
+     *
+     * @return Modelo1007
+     */
+    public function setPrestamista($prestamista)
+    {
+        $this->prestamista = $prestamista;
+
+        return $this;
+    }
+
+    /**
+     * Get prestamista
+     *
+     * @return string
+     */
+    public function getPrestamista()
+    {
+        return $this->prestamista;
+    }
+
+
+
+    /**
+     * Set termino
+     *
+     * @param string $termino
+     *
+     * @return Modelo1007
+     */
+    public function setTermino($termino)
+    {
+        $this->termino = $termino;
+
+        return $this;
+    }
+
+    /**
+     * Get termino
+     *
+     * @return string
+     */
+    public function getTermino()
+    {
+        return $this->termino;
+    }
+
+    /**
+     * Set impNfrec
+     *
+     * @param string $impNfrec
+     *
+     * @return Modelo1007
+     */
+    public function setImpNfrec($impNfrec)
+    {
+        $this->impNfrec = $impNfrec;
+
+        return $this;
+    }
+
+    /**
+     * Get impNfrec
+     *
+     * @return string
+     */
+    public function getImpNfrec()
+    {
+        return $this->impNfrec;
+    }
+
+    /**
+     * Set impTotpr
+     *
+     * @param string $impTotpr
+     *
+     * @return Modelo1007
+     */
+    public function setImpTotpr($impTotpr)
+    {
+        $this->impTotpr = $impTotpr;
+
+        return $this;
+    }
+
+    /**
+     * Get impTotpr
+     *
+     * @return string
+     */
+    public function getImpTotpr()
+    {
+        return $this->impTotpr;
+    }
+
+    /**
+     * Set impIntcmv
+     *
+     * @param string $impIntcmv
+     *
+     * @return Modelo1007
+     */
+    public function setImpIntcmv($impIntcmv)
+    {
+        $this->impIntcmv = $impIntcmv;
+
+        return $this;
+    }
+
+    /**
+     * Get impIntcmv
+     *
+     * @return string
+     */
+    public function getImpIntcmv()
+    {
+        return $this->impIntcmv;
+    }
+
+    /**
+     * Set princiVdo
+     *
+     * @param string $princiVdo
+     *
+     * @return Modelo1007
+     */
+    public function setPrinciVdo($princiVdo)
+    {
+        $this->princiVdo = $princiVdo;
+
+        return $this;
+    }
+
+    /**
+     * Get princiVdo
+     *
+     * @return string
+     */
+    public function getPrinciVdo()
+    {
+        return $this->princiVdo;
+    }
+
+    /**
+     * Set impIntcmn
+     *
+     * @param string $impIntcmn
+     *
+     * @return Modelo1007
+     */
+    public function setImpIntcmn($impIntcmn)
+    {
+        $this->impIntcmn = $impIntcmn;
+
+        return $this;
+    }
+
+    /**
+     * Get impIntcmn
+     *
+     * @return string
+     */
+    public function getImpIntcmn()
+    {
+        return $this->impIntcmn;
+    }
+
+    /**
+     * Set impIntpv
+     *
+     * @param string $impIntpv
+     *
+     * @return Modelo1007
+     */
+    public function setImpIntpv($impIntpv)
+    {
+        $this->impIntpv = $impIntpv;
+
+        return $this;
+    }
+
+    /**
+     * Get impIntpv
+     *
+     * @return string
+     */
+    public function getImpIntpv()
+    {
+        return $this->impIntpv;
+    }
+
+    /**
+     * Set modelo
+     *
+     * @param \AppBundle\Entity\Modelo $modelo
+     *
+     * @return Modelo1007
+     */
+    public function setModelo(\AppBundle\Entity\Modelo $modelo = null)
+    {
+        $this->modelo = $modelo;
+
+        return $this;
+    }
+
+    /**
+     * Get modelo
+     *
+     * @return \AppBundle\Entity\Modelo
+     */
+    public function getModelo()
+    {
+        return $this->modelo;
+    }
+
+    /**
+     * Set moneda
+     *
+     * @param \AppBundle\Entity\Moneda $moneda
+     *
+     * @return Modelo1007
+     */
+    public function setMoneda(\AppBundle\Entity\Moneda $moneda = null)
+    {
+        $this->moneda = $moneda;
+
+        return $this;
+    }
+
+    /**
+     * Get moneda
+     *
+     * @return \AppBundle\Entity\Moneda
+     */
+    public function getMoneda()
+    {
+        return $this->moneda;
+    }
+
+    /**
+     * Set pais
+     *
+     * @param \AppBundle\Entity\Pais $pais
+     *
+     * @return Modelo1007
+     */
+    public function setPais(\AppBundle\Entity\Pais $pais = null)
+    {
+        $this->pais = $pais;
+
+        return $this;
+    }
+
+    /**
+     * Get pais
+     *
+     * @return \AppBundle\Entity\Pais
+     */
+    public function getPais()
+    {
+        return $this->pais;
+    }
+}

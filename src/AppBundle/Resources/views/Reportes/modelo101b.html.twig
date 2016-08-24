@@ -1,0 +1,143 @@
+{% extends '::front_layout.html.twig' %}
+
+ {% block reportes %} active {% endblock %}
+ {% block consolidar %}
+     {% if app.user.grupo %}
+         active
+     {% endif %}
+
+ {% endblock %}
+{% block cmodelo101b %}
+    {% if app.user.grupo %}
+    class="active"
+{% endif %}
+
+{% endblock %}
+{% block rmodelo101b %}
+    {% if not app.user.grupo %}
+    class="active"
+{% endif %}
+{% endblock %}
+
+{% block title %}Cuentas por cobrar ext.{% endblock %}
+{% block body -%}
+
+    {% if app.user.grupo %}
+        <h1><i class="fa fa-certificate"></i> Cuentas por Cobrar en el Exterior (101B)</h1>
+        {% else %}
+            <h1><i class="fa fa-circle-o"></i> Cuentas por Cobrar en el Exterior (101B)</h1>
+    {% endif %}
+
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+
+                    <div class="row">
+                        <form action="{{ path('imprimir_excel_cmodelo101b') }} " role="form"
+                              method="post" >
+                    <div class="pull-right col-lg-1">
+                        {#<a class="btn  btn-xs btn-primary" id="btncmodelo101b" type="submit">Imprimir</a>#}
+                        <button class="btn  btn-xs btn-primary" id="btncmodelo101b" type="submit">Imprimir</button>
+                    </div>
+                    <div class="pull-right col-lg-1" style="margin-right: 30px">
+                        <label >
+                            <select aria-controls="example1" size="1" name="mes" id="mes">
+
+                                <option selected="selected" value="13">Todos</option>
+                                <option value="01">Enero</option>
+                                <option value="02">Febrero</option>
+                                <option value="03">Marzo</option>
+                                <option value="04">Abril</option>
+                                <option value="05">Mayo</option>
+                                <option value="06">Junio</option>
+                                <option value="07">Julio</option>
+                                <option value="08">Agosto</option>
+                                <option value="09">Septiembre</option>
+                                <option value="10">Octubre</option>
+                                <option value="11">Noviembre</option>
+                                <option value="12">Diciembre</option>
+
+                            </select>
+                        </label>
+                    </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+
+
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>COD_ONE</th>
+                            <th> NOM_ENTIDAD </th>
+                            <th> EXT_NO_VEN </th>
+                            <th>EXT_0_60</th>
+                            <th>EXT_61_90</th>
+                            <th>EXT_MAS90</th>
+                            <th>EXT_TOT_VE</th>
+                            <th>EXT_EFECTO</th>
+                            <th>LIT_JUD_E</th>
+                            <th>LIT_PROT_E</th>
+                            <th>SENT_PEN_E</th>
+                            <th>T_VT_CR_EX</th>
+                            <th>Contravalor </th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for entity in entities %}
+                            <tr>
+                                <td>{{ entity.usuario.empresa.codigo }}</td>
+                                <td>{{ entity.usuario.empresa.nombre }}</td>
+                                <td>{{ entity.extNoVen }}</td>
+                                <td>{{ entity.ext060 }}</td>
+                                <td>{{ entity.ext6190 }}</td>
+                                <td>{{ entity.extMas90 }}</td>
+                                <td>{{ entity.extTotVe }} </td>
+                                <td>{{ entity.extEfecto }} </td>
+                                <td>{{ entity.litJudE }} </td>
+                                <td>{{ entity.litProtE }} </td>
+                                <td>{{ entity.sentPentE }} </td>
+                                <td>{{ entity.tVtCrEx }} </td>
+                                <td>{{ entity.contravalor }} </td>
+
+
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                        <tfoot style="border: solid">
+                        <th></th>
+                        <th >TOTAL</th>
+                        <th>{{ data.extNoVen }}</th>
+                        <th>{{ data.ext060 }}</th>
+                        <th>{{ data.ext6190 }}</th>
+                        <th>{{ data.extMas90 }}</th>
+                        <th>{{ data.extTotVe }}</th>
+                        <th>{{ data.extEfecto }}</th>
+                        <th>{{ data.litJudE }}</th>
+                        <th>{{ data.litProtE }}</th>
+                        <th>{{ data.sentPentE }}</th>
+                        <th>{{ data.tVtCrEx }}</th>
+                        <th>{{ data.contravalor }}</th>
+
+
+                        </tfoot>
+                    </table>
+
+
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+    </div><!-- /.row -->
+
+
+{% endblock %}
+
+
